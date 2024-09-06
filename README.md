@@ -1,21 +1,54 @@
-# SimpleCluster
+# Simple Cluster
 
-**TODO: Add description**
+The project is started for training purposes in Elixir programming. It is under developing, see TODO section of planned
+further features.
 
-## Installation
+Sending files over network from one node to another.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `simple_cluster` to your list of dependencies in `mix.exs`:
+### Tests running
 
-```elixir
-def deps do
-  [
-    {:simple_cluster, "~> 0.1.0"}
-  ]
-end
+```shell
+mix test
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/simple_cluster>.
+### Usage
 
+Starting node 1:
+
+```shell
+iex --name n1@127.0.0.1 --cookie my_fantastic_cookie --erl "-config sys.config" -S mix
+```
+
+Starting node 2:
+
+```shell
+iex --name n2@127.0.0.1 --cookie my_fantastic_cookie --erl "-config sys.config" -S mix
+```
+
+#### Working on node 2
+
+Setting up source dir:
+
+```shell
+SimpleCluster.Send.set_source("/tmp/111")
+```
+
+Setting up target dir:
+
+```shell
+SimpleCluster.Send.set_destination("/tmp/222")
+```
+
+Downloading 3 files:
+
+```shell
+SimpleCluster.Send.download(3)
+```
+
+### TODO
+
+- test coverage
+- `:erlang.binary_to_term`, `:erlang.term_to_binary`
+- `cast`-request
+- sending files over tcp socket
+- ignoring after sent
